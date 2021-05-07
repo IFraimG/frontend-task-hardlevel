@@ -1,0 +1,89 @@
+@import "./main.scss";
+
+.project {
+  &__wrapper {
+    font-family: sans-serif;
+  }
+  &__container {}
+  &__content {
+    max-width: 500px;
+  }
+  &__list {}
+  &__title {
+    font-size: 48px;
+    text-align: center;
+    margin-bottom: 50px;
+    &-input {
+      padding: 10px;
+    }
+    &-content {
+      margin-bottom: 50px;
+      display: flex;
+      align-items: center;
+      input {
+        width: 100%;
+        margin-right: 10px;
+        font-size: 32px;
+      }
+      img {
+        margin: 0 10px;
+        width: 24px;
+        height: 24px;
+      }
+    }
+  }
+  &__task {
+    min-height: 50px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background: $frlightgrey;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 9px;
+    &-container {}
+    &-description {
+      font-size: 26px;
+      margin-right: 20px;
+    }
+    &-done {
+      width: 32px;
+      height: 32px;
+      object-fit: cover;
+      cursor: pointer;
+    }
+    &-ready {
+      display: none;
+    }
+  }
+  &__actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    button {
+      border: none;
+      color: #fff;
+      padding: 10px 40px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+  }
+  &__success {
+    background-color: $frgreen;
+    &:active {
+      background-color: $frdarkgreen;
+    }
+  }
+  &__edit {
+    background-color: $fred;
+    &:active {
+      background-color: $frdarkred;
+    }
+  }
+}
+
+.project__task:hover {
+  .project__task-done {
+    display: block;
+  }
+}

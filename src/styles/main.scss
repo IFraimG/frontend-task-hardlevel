@@ -3,6 +3,9 @@ $frlightgrey: #e1e5ea;
 $frnormalgrey: #a7bbc7;
 $frdarkgrey: #6d7a81;
 $fred: #da7f8f;
+$frdarkred: #813b48;
+$frgreen: rgb(13, 99, 32);
+$frdarkgreen: rgb(9, 59, 20);
 
 * {
   margin: 0;
@@ -13,4 +16,12 @@ $fred: #da7f8f;
   max-width: 1100px;
   padding: 20px 40px;
   margin: 0 auto;
+}
+
+img, button {
+  user-select: none;
+}
+
+input:focus {
+  outline: none;
 }

@@ -10,8 +10,7 @@ export default defineComponent({
   name: 'App',
   setup() {
     const store = useStore()
-
-    onBeforeMount(async () => await store.dispatch("getIpAddress"))
+    onBeforeMount(() => store.dispatch("getIpAddress"))
   }
 })
 </script>
