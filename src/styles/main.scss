@@ -4,6 +4,7 @@ $frnormalgrey: #a7bbc7;
 $frdarkgrey: #6d7a81;
 $fred: #da7f8f;
 $frdarkred: #813b48;
+$frlightgreen: rgb(80, 224, 111);
 $frgreen: rgb(13, 99, 32);
 $frdarkgreen: rgb(9, 59, 20);
 
@@ -22,6 +23,13 @@ img, button {
   user-select: none;
 }
 
-input:focus {
+input:focus, textarea:focus {
   outline: none;
+}
+
+textarea[data-pcholder="error"] {
+  &::placeholder {
+    color: $frdarkred;
+    font-weight: bold;
+  }
 }

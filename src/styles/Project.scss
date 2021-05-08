@@ -1,12 +1,20 @@
 @import "./main.scss";
+@import "./Task.scss";
 
 .project {
   &__wrapper {
     font-family: sans-serif;
   }
-  &__container {}
   &__content {
     max-width: 500px;
+  }
+  &__header {
+    display: flex;
+    justify-content: center;
+    gap: 0 20px;
+    img {
+      margin-top: 20px;
+    }
   }
   &__list {}
   &__title {
@@ -32,38 +40,17 @@
       }
     }
   }
-  &__task {
-    min-height: 50px;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    background: $frlightgrey;
-    padding: 10px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-radius: 9px;
-    &-container {}
-    &-description {
-      font-size: 26px;
-      margin-right: 20px;
-    }
-    &-done {
-      width: 32px;
-      height: 32px;
-      object-fit: cover;
-      cursor: pointer;
-    }
-    &-ready {
-      display: none;
-    }
-  }
   &__actions {
     display: flex;
-    justify-content: space-between;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px 0;
     margin-top: 20px;
     button {
       border: none;
       color: #fff;
       padding: 10px 40px;
+      margin: 0 10px;
       cursor: pointer;
       font-size: 16px;
     }
@@ -80,10 +67,16 @@
       background-color: $frdarkred;
     }
   }
-}
-
-.project__task:hover {
-  .project__task-done {
-    display: block;
+  &__done {
+    color: #fff;
+    background-color: $frlightgreen;
+    border-color: $frgreen;
+  }
+  &__append {
+    width: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+  }
+  &__settings {
+    margin-top: 20px;
   }
 }

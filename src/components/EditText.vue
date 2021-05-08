@@ -1,6 +1,5 @@
 <template>
-  <input class="project__title-input" type="text" v-model="editValue.value" />
-  <img class="project__task-done" @click="saveValue" src="/src/assets/check.png" />
+  <input class="project__title-input" @keydown.enter="saveValue" type="text" v-model="editValue.value" />
   <img class="project__task-done" @click="editValueClose" src="/src/assets/cancel.png" />
 </template>
 

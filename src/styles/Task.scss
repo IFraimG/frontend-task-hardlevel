@@ -1,0 +1,63 @@
+@import "./main.scss";
+@import "./Tooltip.scss";
+
+.project {
+  &__task {
+    min-height: 50px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background: $frlightgrey;
+    padding: 10px 20px;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 9px;
+    &-wrapper {
+      position: relative;
+    }
+    &-description {
+      font-size: 26px;
+      margin-right: 20px;
+    }
+    &-done {
+      width: 24px;
+      height: 24px;
+      object-fit: cover;
+      cursor: pointer;
+    }
+    &-ready {
+      display: none;
+    }
+    &-edit {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    &-field {
+      resize: none;
+      min-height: 30px;
+      font-family: sans-serif;
+      padding: 10px;
+      border: none;
+      overflow: hidden;
+    }
+    &-error {
+      &::placeholder {
+        color: $fred;
+        font-weight: bold;
+      }
+    }
+    &__mini-task-add {
+      position: relative;
+      right: -150px;
+      top: 0;
+      margin-bottom: 30px;
+    }
+  }
+}
+
+.project__task:hover {
+  .project__task-done {
+    display: block;
+  }
+}
