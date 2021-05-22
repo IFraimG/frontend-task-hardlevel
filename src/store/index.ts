@@ -9,7 +9,8 @@ const store = createStore({
     ip: "",
     isLoader: false,
     isModeInput: false,
-    isModeMiniTask: false
+    isModeMiniTask: false,
+    tooltipID: null
   }),
   mutations: mutations,
   actions: actions,
@@ -19,7 +20,8 @@ const store = createStore({
     project: (state: any) => state.project,
     loader: (state: any) => state.isLoader,
     isModeInput: (state: any) => state.isModeInput,
-    isModeMiniTask: (state: any) => state.isModeMiniTask
+    isModeMiniTask: (state: any) => state.isModeMiniTask,
+    tooltipID: (state: any) => state.tooltipID
   }
 })
 

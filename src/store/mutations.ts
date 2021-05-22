@@ -1,4 +1,3 @@
-
 const mutations = {
   SET_IP(state: any, payload: string) {
     state.ip = payload
@@ -39,10 +38,8 @@ const mutations = {
   SET_MODE_MINI_TASK(state: any, payload: boolean | string) {
     state.isModeMiniTask = payload
   },
-  APPEND_MINI_TASK(state: any, payload: any) {
-    state.project.tasks.map((task: any, index: number) => {
-      if (task.id == payload.taskID) state.project.tasks[index].miniTasks.push(payload.miniTask)
-    })
+  SET_TOOLTIP(state: any, payload: string | null) {
+    state.tooltipID = payload
   }
 }
 

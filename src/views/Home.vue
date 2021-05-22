@@ -18,15 +18,15 @@
 </template>
 
 <script lang="ts">
-import { computed } from '@vue/runtime-core'
-import { useStore } from 'vuex'
-import "/src/styles/Home.scss"
+  import { computed } from '@vue/runtime-core'
+  import { useStore } from 'vuex'
+  import "/src/styles/Home.scss"
 
-export default {
-  name: "Home",
-  setup() {
-    const store = useStore()
-    return { projects: computed(() => store.getters.projects) }
+  export default {
+    name: "Home",
+    setup() {
+      const store = useStore()
+      return { projects: computed(() => store.getters.projects) }
+    }
   }
-}
 </script>
