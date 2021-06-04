@@ -9,7 +9,7 @@
     </div>
     <div class="project__tooltip" v-if="tooltip == task.id">
       <p @click="setModeMiniTask(task.id)">Добавить подзадание</p>
-      <p>Перенести в другой проект</p>
+      <p @click="movedTask">Перенести в другой проект</p>
       <p @click="deleteTask(task.id)">Удалить</p>
     </div>
   </div>
@@ -51,6 +51,10 @@
       },
       saveMiniTask(text: string) {
         this.$store.dispatch("saveMiniTask", { text, taskParentID: this.isModeMiniTask })
+      },
+      movedTask() {
+        this.$store.dispatch("getProjects")
+        this.$store.commit("SET_MODAL_MOVE", { task: this.task, isModal: true })
       }
     }
   }

@@ -1,34 +1,41 @@
+import { StateInterface } from './../interfaces/project';
+import { TaskDoneItfc, TaskInterface, TaskModalMovedItfc, TaskShortItfc, TaskDescriptionEditItfc } from './../interfaces/task';
+import { ProjectFull } from "../interfaces/project"
+
 const mutations = {
-  SET_IP(state: any, payload: string) {
+  SET_IP(state: StateInterface, payload: string) {
     state.ip = payload
   },
-  SET_ALL_PROJECTS(state: any, payload: any) {
+  SET_ALL_PROJECTS(state: StateInterface, payload: Array<ProjectFull>) {
     state.projectsList = payload
   },
-  SET_PROJECT(state: any, payload: any) {
+  SET_PROJECT(state: StateInterface, payload: ProjectFull) {
     state.project = payload
   },
-  SET_LOADER(state: any, payload: boolean) {
+  ADD_PROJECT(state: StateInterface, payload: any) {
+    state.projectsList = state.projectsList == null ? [payload.project] : [...state.projectsList, payload.project]
+  },
+  SET_LOADER(state: StateInterface, payload: boolean) {
     state.isLoader = payload
   },
-  SET_TITLE(state: any, payload: string) {
-    state.project.title = payload
+  SET_TITLE(state: StateInterface, payload: string) {
+    if (state.project != null) state.project.title = payload
   },
-  EDIT_DESCRIPTION(state: any, payload: any) {
-    state.project.tasks.map((item: any) => {
+  EDIT_DESCRIPTION(state: StateInterface, payload: TaskDescriptionEditItfc) {
+    if (state.project != null) state.project.tasks.map((item: TaskInterface) => {
       if (item.id == payload.id) item.description = payload.value
     })
   },
-  SET_TASK_DONE(state: any, payload: any) {
-    state.project.tasks.map((item: any) => {
+  SET_TASK_DONE(state: StateInterface, payload: TaskDoneItfc) {
+    if (state.project != null) state.project.tasks.map((item: TaskInterface) => {
       if (item.id == payload.id) item.isDone = payload.isDone
     })
   },
-  APPEND_TASK(state: any, payload: any) {
+  APPEND_TASK(state: any, payload: TaskInterface) {
     state.project.tasks = [...state.project.tasks, payload]
   },
   DELETE_TASK(state: any, payload: string) {
-    state.project.tasks.map((task: any, index: number) => {
+    state.project.tasks.map((task: TaskInterface, index: number) => {
       if (payload == task.id) state.project.tasks.splice(index, 1)
     })
   },
@@ -40,7 +47,14 @@ const mutations = {
   },
   SET_TOOLTIP(state: any, payload: string | null) {
     state.tooltipID = payload
+  },
+  SET_MODAL_MOVE(state: any, payload: TaskModalMovedItfc) {
+    state.isModalMoved = payload.isModal
+    state.modalTask = payload.task
+  },
+  SET_PROJECTS_LIST(state: any, payload: TaskShortItfc) {
+    state.projectModalList = payload
   }
 }
 
-export default mutations;
+export default mutations

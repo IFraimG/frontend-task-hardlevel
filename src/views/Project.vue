@@ -1,5 +1,6 @@
 <template>
   <div @click="$store.commit('SET_TOOLTIP', null)" class="project__wrapper">
+    <ModalMoved />
     <div class="project__container _container">
       <div class="project__content" v-if="project != null && !isLoader">
         <div class="project__header">
@@ -20,7 +21,7 @@
         </div>
       </div>
       <div v-if="isLoader">
-       <p>Загрузка.....</p>
+        <p>Загрузка.....</p>
       </div>
       <div v-if="!isLoader && project == null">
         <h1>Возникли проблемы</h1>
@@ -37,10 +38,11 @@
   import Title from '/src/components/Title.vue'
   import AppendTask from '/src/components/AppendTask.vue'
   import TaskWrapper from '/src/components/TaskWrapper.vue'
+  import ModalMoved from '/src/components/ModalMoved.vue'
 
   export default {
     name: "Project",
-    components: { Title, AppendTask, TaskWrapper },
+    components: { Title, AppendTask, TaskWrapper, ModalMoved },
     setup() {
       const store = useStore()
       const route = useRoute()

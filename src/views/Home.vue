@@ -12,6 +12,7 @@
             </router-link>
           </div>
         </div>
+        <button class="home__create" @click="create">Создать проект</button>
       </div>
     </div>
   </div>
@@ -26,7 +27,7 @@
     name: "Home",
     setup() {
       const store = useStore()
-      return { projects: computed(() => store.getters.projects) }
+      return { projects: computed(() => store.getters.projects), create: computed(() => store.dispatch("createProject")) }
     }
   }
 </script>

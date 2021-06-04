@@ -2,8 +2,6 @@ const actions = {
   async getIpAddress({ commit, dispatch }: any) {
     let json = await fetch(`${import.meta.env.VITE_SITE_API}/check?access_key=${import.meta.env.VITE_KEY_API}`, { method: "GET" })
     let data = await json.json()
-    console.log(data)
-
     let ip = data.ip
 
     commit("SET_IP", ip)
@@ -27,9 +25,7 @@ const actions = {
     try {
       await fetch(`http://localhost:3001/saveTitle`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ip: state.ip, previousTitle: data.previousTitle, title: data.title })
       })
       commit("SET_TITLE", data.title)
@@ -41,9 +37,7 @@ const actions = {
     try {
       await fetch(`http://localhost:3001/editDescription`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ip: state.ip,
           title: state.project.title,
@@ -113,6 +107,46 @@ const actions = {
       commit("APPEND_TASK", miniTask)
     } catch (error) {
       console.log(error.message)
+    }
+  },
+  async getProjects({ state, commit }: any) {
+    try {
+      let json = await fetch(`http://localhost:3001/getProjectsID/${String(state.ip)}/${state.project.title}`, { method: "GET" })
+      let projects = await json.json()
+      console.log(projects);
+      commit("SET_PROJECTS_LIST", projects)
+    } catch (error) {
+      console.log(error.message)
+    }
+  },
+  async createProject({ state, commit }: any) {
+    try {
+      let json = await fetch(`http://localhost:3001/create`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ip: state.ip })
+      })
+      let project = await json.json()
+      commit("ADD_PROJECT", { project })
+    } catch (error) {
+      console.log(error.message);
+    }
+  },
+  async taskMoved({ state, commit }: any, payload: any) {
+    try {
+      let json = await fetch(`http://localhost:3001/taskMoved`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ip: state.ip, oldID: state.project.id, title: state.project.title,
+          newID: payload.id, newTitle: payload.title, taskID: state.modalTask.id
+        })
+      })
+      let project = await json.json()
+      commit("SET_PROJECT", project)
+      commit("SET_MODAL_MOVE", { isModal: false, task: null })
+    } catch (error) {
+      console.log(error.message);
     }
   }
 }
