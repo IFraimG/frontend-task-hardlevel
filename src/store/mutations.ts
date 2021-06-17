@@ -1,5 +1,8 @@
 import { StateInterface } from './../interfaces/project';
-import { TaskDoneItfc, TaskInterface, TaskModalMovedItfc, TaskShortItfc, TaskDescriptionEditItfc } from './../interfaces/task';
+import {
+  TaskDoneItfc, TaskInterface, TaskModalMovedItfc,
+  TaskShortItfc, TaskDescriptionEditItfc, TaskDragItfc
+} from './../interfaces/task'
 import { ProjectFull } from "../interfaces/project"
 
 const mutations = {
@@ -39,13 +42,13 @@ const mutations = {
       if (payload == task.id) state.project.tasks.splice(index, 1)
     })
   },
-  SET_MODE_INPUT(state: any, payload: boolean) {
+  SET_MODE_INPUT(state: StateInterface, payload: boolean) {
     state.isModeInput = payload
   },
-  SET_MODE_MINI_TASK(state: any, payload: boolean | string) {
+  SET_MODE_MINI_TASK(state: StateInterface, payload: boolean) {
     state.isModeMiniTask = payload
   },
-  SET_TOOLTIP(state: any, payload: string | null) {
+  SET_TOOLTIP(state: StateInterface, payload: string | null) {
     state.tooltipID = payload
   },
   SET_MODAL_MOVE(state: any, payload: TaskModalMovedItfc) {
@@ -54,6 +57,9 @@ const mutations = {
   },
   SET_PROJECTS_LIST(state: any, payload: TaskShortItfc) {
     state.projectModalList = payload
+  },
+  DRAG_TASK(state: any, payload: TaskInterface[]) {
+    state.project.tasks = payload
   }
 }
 

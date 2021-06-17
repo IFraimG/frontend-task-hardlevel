@@ -18,8 +18,7 @@
 
 <script lang="ts">
   import "../styles/ModalMoved.scss"
-  import { onMounted } from "vue"
-  import { computed, provide } from '@vue/runtime-core'
+  import { computed } from 'vue'
   import { useStore } from "vuex"
 
   export default {
@@ -28,17 +27,13 @@
       const store = useStore()
       const isModal = computed(() => store.getters.isModalMoved)
 
+      const taskMoved = (id: string, title: string) => store.dispatch("taskMoved", { id, title })
       store.dispatch("getProjects")
       return {
-        isModal,
+        isModal, taskMoved,
         setModal: (isModal: boolean, task: any) => store.commit('SET_MODAL_MOVE', { isModal, task }), 
         projects: computed(() => store.getters.projectsList),
         getProjects: () => store.dispatch("getProjects")
-      }
-    },
-    methods: {
-      taskMoved(id: string, title: string) {
-        this.$store.dispatch("taskMoved", { id, title })
       }
     }
   }

@@ -10,20 +10,19 @@
   export default {
     name: "EditText",
     emits: ["editMode", "saveValue"],
-    setup() {
+    setup(_, { emit }) {
       let value = inject("value")
       let editValue = reactive({ value: value })
-      return { editValue }
-    },
-    methods: {
-      editValueClose() {
-        this.$emit("editMode", false)
-        this.editValue.value = ""
-      },
-      async saveValue() {
-        await this.$emit("saveValue", this.editValue.value)
-        this.editValueClose()
+
+      const editValueClose = () => {
+        emit("editMode", false)
+        editValue.value = ""
       }
+      const saveValue = async () => {
+        await emit("saveValue", editValue.value)
+        editValueClose()
+      }
+      return { editValue, saveValue, editValueClose}
     }
   }
 </script>

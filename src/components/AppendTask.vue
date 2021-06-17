@@ -6,7 +6,7 @@
       class="project__task-field project__append"
       v-model="modeEdit.text"
       type="text"
-      ref="appendTask"
+      ref="appendTaskREF"
       data-pcholder="normal"
     />
     </div>
@@ -18,7 +18,7 @@
 </template>
 
 <script lang="ts">
-  import { reactive } from '@vue/reactivity'
+  import { reactive, ref } from "vue"
 
   export default {
     name: "AppendTask",
@@ -26,24 +26,26 @@
       isMode: Boolean
     },
     emits: ["setMode", "appendValue"],
-    setup() {
+    setup(_, { emit }) {
       let modeEdit = reactive({ text: "" })
-      return { modeEdit }
-    },
-    methods: {
-      setMode(isMode: boolean) {
-        this.$emit("setMode", isMode)
-        if (!isMode) this.modeEdit.text = ""
-      },
-      async appendTask() {
-        if (this.modeEdit.text.length > 0) {
-          await this.$emit("appendValue", this.modeEdit.text)
-          this.setMode(false)
+      let appendTaskREF = ref(null)
+
+      const setMode = (isMode: boolean) => {
+        emit("setMode", isMode)
+        if (!isMode) modeEdit.text = ""
+      }
+
+      const appendTask = async () => {
+        if (modeEdit.text.length > 0) {
+          await emit("appendValue", modeEdit.text)
+          setMode(false)
         } else {
-          this.$refs.appendTask.placeholder = "Вы не ввели описание !"
-          this.$refs.appendTask.setAttribute("data-pcholder", "error")
+          appendTaskREF.value.placeholder = "Вы не ввели описание !"
+          appendTaskREF.value.setAttribute("data-pcholder", "error")
         }
-      },
+      }
+
+      return { modeEdit, appendTask, setMode }
     }
   }
 </script>

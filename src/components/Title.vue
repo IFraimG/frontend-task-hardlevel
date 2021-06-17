@@ -1,37 +1,34 @@
 <template>
-  <h1 class="project__title" v-if="!editTitle.isModeTitle" @dblclick="editMode(true)">
+  <h1 v-if="!editTitle.isModeTitle" class="project__title" @dblclick="editMode(true)">
     {{ project.title }}
   </h1>
-  <div class="project__title-content" v-if="editTitle.isModeTitle == true">
+  <div v-if="editTitle.isModeTitle == true" class="project__title-content">
     <EditText @editMode="editMode" @saveValue="saveTitle" />
   </div>
 </template>
 
 <script lang="ts">
-import { reactive } from '@vue/reactivity';
-  import "/src/styles/Project.scss";
-  import EditText from './EditText.vue';
-  import { provide } from '@vue/runtime-core';
+  import "/src/styles/Project.scss"
+  import EditText from "./EditText.vue"
+  import { defineComponent, provide, reactive } from "vue"
+  import { useStore } from "vuex"
 
-  export default {
+  const Component = defineComponent({
     name: "Title",
     components: { EditText },
     props: {
-      project: Object,
+      project: Object
     },
     setup(props: any) {
+      const store = useStore()
       let editTitle = reactive({ isModeTitle: false })
 
+      const editMode = (isMode: boolean) => editTitle.isModeTitle = isMode
+      const saveTitle = (value: string) => store.dispatch("saveTitle", { title: value, previousTitle: props.project.title })
       provide("value", props.project.title)
-      return { editTitle, project: props.project }
+      return { editTitle, saveTitle, editMode }
     },
-    methods: {
-      editMode(isMode: boolean) {
-        this.editTitle.isModeTitle = isMode
-      },
-      saveTitle(value: string) {
-        this.$store.dispatch("saveTitle", { title: value, previousTitle: this.project.title })
-      }
-    }
-  };
+  })
+
+  export default Component
 </script>

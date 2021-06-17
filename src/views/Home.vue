@@ -19,15 +19,17 @@
 </template>
 
 <script lang="ts">
-  import { computed } from '@vue/runtime-core'
+  import { computed, defineComponent } from '@vue/runtime-core'
   import { useStore } from 'vuex'
   import "/src/styles/Home.scss"
 
-  export default {
+  const Component = defineComponent({
     name: "Home",
     setup() {
       const store = useStore()
       return { projects: computed(() => store.getters.projects), create: computed(() => store.dispatch("createProject")) }
     }
-  }
+  })
+
+  export default Component
 </script>

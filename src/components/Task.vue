@@ -26,11 +26,10 @@
 </template>
 
 <script lang="ts">
-  import { provide, reactive } from "@vue/runtime-core"
-  // import EditText from './EditText.vue'
+  import { defineComponent, provide, reactive } from "vue"
   import "/src/styles/Project.scss"
 
-  export default {
+  const Component = defineComponent({
     name: "Task",
     props: {
       item: Object
@@ -64,5 +63,7 @@
         this.$store.dispatch("setTaskDone", { id: this.task.id, isDone })
       }
     }
-  }
+  })
+
+  export default Component
 </script>

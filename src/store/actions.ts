@@ -148,6 +148,40 @@ const actions = {
     } catch (error) {
       console.log(error.message);
     }
+  },
+  async dragTask({ state, commit }: any, payload: any) {
+    let newTaskIndex = state.project.tasks.findIndex((task: any) => task.id == payload.taskID)
+    let tasks = []
+
+    if (payload.taskOrder != null && newTaskIndex != null) {
+      let prevTaskOrder = {
+        ...state.project.tasks[newTaskIndex],
+        order: payload.taskOrder,
+        parentID: state.project.tasks[payload.taskOrder]?.parentID
+      }
+      let newTask = {
+        ...state.project.tasks[payload.taskOrder],
+        order: newTaskIndex,
+        parentID: state.project.tasks[newTaskIndex]?.parentID
+      }
+
+      for (let i = 0; i < state.project.tasks.length; i++) {
+        if (i == payload.taskOrder) tasks.push(prevTaskOrder)
+        else if (i == newTaskIndex) tasks.push(newTask)
+        else tasks.push(state.project.tasks[i])
+      }
+
+      try {
+        await fetch(`http://localhost:3001/dragTasks`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ ip: state.ip, title: state.project.title, tasks })
+        })
+        commit("DRAG_TASK", tasks)
+      } catch (err) {
+        console.log(err)
+      }
+    }
   }
 }
 

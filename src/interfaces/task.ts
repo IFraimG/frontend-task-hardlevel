@@ -3,6 +3,7 @@ export interface TaskInterface {
   id: string
   isDone: boolean
   parentID: string | null
+  order: number | null
 }
 
 export interface TaskDoneItfc {
@@ -23,4 +24,9 @@ export interface TaskShortItfc {
 export interface TaskDescriptionEditItfc {
   value: string
   id: string
+}
+
+export interface TaskDragItfc {
+  taskIndex: number
+  taskID: string
 }
