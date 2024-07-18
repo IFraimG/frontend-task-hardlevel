@@ -27,7 +27,10 @@
     name: "Home",
     setup() {
       const store = useStore()
-      return { projects: computed(() => store.getters.projects), create: computed(() => store.dispatch("createProject")) }
+
+      const create = () => store.dispatch("createProject")
+
+      return { projects: computed(() => store.getters.projects), create }
     }
   })
 

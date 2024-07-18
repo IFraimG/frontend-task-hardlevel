@@ -1,6 +1,6 @@
 const actions = {
   async getIpAddress({ commit, dispatch }: any) {
-    let json = await fetch(`${import.meta.env.VITE_SITE_API}/check?access_key=${import.meta.env.VITE_KEY_API}`, { method: "GET" })
+    let json = await fetch("https://api.ipify.org?format=json", { method: "GET" })
     let data = await json.json()
     let ip = data.ip
 
@@ -134,16 +134,20 @@ const actions = {
   },
   async taskMoved({ state, commit }: any, payload: any) {
     try {
-      let json = await fetch(`http://localhost:3001/taskMoved`, {
-        method: "PUT",
+      let jsonAdd = await fetch(`http://localhost:3001/appendTask`, {
+        method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          ip: state.ip, oldID: state.project.id, title: state.project.title,
-          newID: payload.id, newTitle: payload.title, taskID: state.modalTask.id
+          ip: state.ip, title: payload.title, description: state.modalTask.description
         })
       })
-      let project = await json.json()
-      commit("SET_PROJECT", project)
+
+      let jsonRemove = await fetch(`http://localhost:3001/deleteTask/${state.ip}/${state.project.title}/${state.modalTask.id}`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" }
+      })
+      // let project = await jsonRemove.json()
+      commit("DELETE_TASK", state.modalTask.id)
       commit("SET_MODAL_MOVE", { isModal: false, task: null })
     } catch (error) {
       console.log(error.message);
