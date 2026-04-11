@@ -6,17 +6,33 @@
 
 ### Технологии
 
-* Vue.js
-* Typescript
-* Vuex
-* Vue-router
-* Vite
-* Scss
-* Drag-n-drop
+* Frontend
+  * Vue.js
+  * Typescript
+  * Vuex
+  * Vue-router
+  * Vite
+  * Scss
+  * Drag-n-drop
+* Backend
+  * Node.js
+  * Express.js
+  * fs, path
 
-### Настройка проекта
+
+### Запуск клиента
 
 ```
+npm install
+
+npm run dev
+```
+
+### Запуск сервера
+
+```
+cd ./server
+
 npm install
 
 mkdir files
@@ -25,3 +41,4 @@ npm run start
 ```
 
 [Тестовое задание](https://github.com/KazanExpress/frontend-test-task)
+
